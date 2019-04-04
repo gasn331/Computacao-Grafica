@@ -13,9 +13,9 @@ void GerenciaTeclado(unsigned char key, int x, int y);
 void AlteraTamanhoJanela(GLsizei w, GLsizei h);
 
 void main(int argc, char** argv){
-     int x, y;
     
- 
+    int x, y;
+    
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(1000, 800);
@@ -50,20 +50,20 @@ void Desenha(void)
 
 // Inicializa parâmetros de rendering
 void Inicializa (void){
-glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 // Função callback chamada quando o tamanho da janela é alterado
 void AlteraTamanhoJanela(GLsizei w, GLsizei h)
 {
-// Especifica as dimensões da Viewport
-glViewport(0, 0, w, h);
-view_w = w;
-view_h = h;
-// Inicializa o sistema de coordenadas
-glMatrixMode(GL_PROJECTION);
-glLoadIdentity();
-gluOrtho2D (-win, win, -win, win);
+	// Especifica as dimensões da Viewport
+	glViewport(0, 0, w, h);
+	view_w = w;
+	view_h = h;
+	// Inicializa o sistema de coordenadas
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D (-win, win, -win, win);
 }
 // Função callback chamada para gerenciar eventos de teclado
 void GerenciaTeclado(unsigned char key, int x, int y){

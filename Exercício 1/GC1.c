@@ -13,9 +13,9 @@ void GerenciaTeclado(unsigned char key, int x, int y);
 void AlteraTamanhoJanela(GLsizei w, GLsizei h);
 
 void main(int argc, char** argv){
+     int x, y;
     
-    int x, y;
-    
+ 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(1000, 800);
@@ -70,15 +70,15 @@ void GerenciaTeclado(unsigned char key, int x, int y){
 	switch (key) {
 		case 'g':
 		case 'G':// muda a escala pra grande
-		    escala = 2.0;
+			escala += 0.4;
 		break;
 		case 'm':
-		case 'M':// muda a escala pra muito grande
-		    escala = 4.0;
+		case 'M':// muda a escala menor
+			escala -= 0.4;
 		break;
 		case 'n':
-		case 'N'://muda a escala para Normal
-		    escala = 1;
+		case 'N':
+			//coloque aqui os teclas para rotação/translação
 		break;
 	}
 	glutPostRedisplay();

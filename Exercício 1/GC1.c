@@ -4,18 +4,36 @@
 
 
 GLfloat xf, yf, win;
+typedef struct Coordenadas_poligono{
+	int quantidade_de_lados;
+	GLfloat *coordenadas_x, *coordenadas_y;
+}CoordenadasTriangulo;
 GLint view_w, view_h;
+
+CoordenadasTriangulo Triangulo;
 float escala = 1;
 
 void Desenha(void);
 void Inicializa(void);
 void GerenciaTeclado(unsigned char key, int x, int y);
 void AlteraTamanhoJanela(GLsizei w, GLsizei h);
+void rotaciona_poligono();
 
 void main(int argc, char** argv){
-     int x, y;
     
- 
+    int x, y, quantidade_de_lados;
+    //Inicializacao de um poligono de 3 lados
+    quantidade_de_lados = 3;
+    Triangulo.coordenadas_x = (GLfloat *)malloc(sizeof(GLfloat)*quantidade_de_lados);
+    Triangulo.coordenadas_y = (GLfloat *)malloc(sizeof(GLfloat)*quantidade_de_lados);
+    Triangulo.coordenadas_x[0] = 0.125;
+    Triangulo.coordenadas_x[1] = 0.375;
+    Triangulo.coordenadas_x[2] = 0.245;
+    Triangulo.coordenadas_y[0] = 0.125;
+    Triangulo.coordenadas_y[1] = 0.125;
+    Triangulo.coordenadas_y[2] = 0.375;
+    //-----------------------------------------------
+    
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(1000, 800);
@@ -41,9 +59,9 @@ void Desenha(void)
     glClear(GL_COLOR_BUFFER_BIT);
 
     glBegin(GL_POLYGON);
-    glVertex2f(0.125*escala,0.125*escala); //baixo esq
-    glVertex2f(0.375*escala,0.125*escala); //baixo dir
-    glVertex2f(0.245*escala,0.375*escala); //cima
+    glVertex2f(Triangulo.coordenadas_x[0]*escala, Triangulo.coordenadas_y[0]*escala); //baixo esq
+    glVertex2f(Triangulo.coordenadas_x[1]*escala, Triangulo.coordenadas_y[1]*escala); //baixo dir
+    glVertex2f(Triangulo.coordenadas_x[2]*escala, Triangulo.coordenadas_y[2]*escala); //cima
     glEnd();
     glFlush();
 }

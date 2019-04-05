@@ -7,7 +7,7 @@
  * Nesse caso estamos gerando um Triangulo */
 typedef struct Coordenadas_poligono{
 	int quantidade_de_lados;
-	GLfloat *coordenadas_x, *coordenadas_y, *coordenadas_z, center_x, center_y;
+	GLfloat *coordenadas_x, *coordenadas_y, *coordenadas_z;
 }CoordenadasTriangulo;
 
 CoordenadasTriangulo Triangulo;
@@ -15,7 +15,6 @@ GLint view_w, view_h;
 GLfloat xf, yf, win;
 float escala = 1;
 double Valor_fixo_rotacao = 30.0;
-float center_x, center_y;
 
 void Desenha(void);
 void Inicializa(void);

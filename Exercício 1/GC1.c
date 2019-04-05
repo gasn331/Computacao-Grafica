@@ -97,6 +97,15 @@ void AlteraTamanhoJanela(GLsizei w, GLsizei h)
 
 /*Funcao para rotacao ao redor do eixo Z
  * parametros: double angulo -> espera um valor real com o angulo de rotacao
+ * Nessa função a rotação é feita através de um ângulo teta qualquer a partir da origem.
+ * A rotação segue o seguinte cálculo:
+ * 	
+ * 		x' = x * cos(teta) - y * sen(teta)
+ *  	y' = y * sen(teta) + y * cos(teta)
+ * 
+ * -> x e y são as coordenadas atuais de um determinado vértice, antes da rotação.
+ * -> x' e y' são as novas coordenadas de um determinado vértice, dada sua rotação.
+ * x' e y' são representados por nova_coordenada_x e nova_coordenada_y, respectivamente.
  */
 void rotacionar(double angulo){
 	GLfloat nova_coordenada_x, nova_coordenada_y;
@@ -105,7 +114,7 @@ void rotacionar(double angulo){
 	seno_angulo = sin(angulo);
 	cosseno_angulo = cos(angulo);
 	for(contador = 0; contador < Triangulo.quantidade_de_lados; contador++){
-		//Calcula as coordenadas x e y de acordo com os calculos da matriz de rotação
+		/*Calcula as coordenadas x e y de acordo com os calculos da matriz de rotação*/
 		nova_coordenada_x = Triangulo.coordenadas_x[contador]*cosseno_angulo - Triangulo.coordenadas_y[contador]*seno_angulo;
 		nova_coordenada_y = Triangulo.coordenadas_x[contador]*seno_angulo + Triangulo.coordenadas_y[contador]*cosseno_angulo;
 		Triangulo.coordenadas_x[contador] = nova_coordenada_x;

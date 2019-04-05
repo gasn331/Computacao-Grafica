@@ -14,7 +14,10 @@ CoordenadasTriangulo Triangulo;
 GLint view_w, view_h;
 GLfloat xf, yf, win;
 float escala = 1;
+float tx = 1;
+float ty = 1;
 double Valor_fixo_rotacao = 30.0;
+
 
 void Desenha(void);
 void Inicializa(void);
@@ -39,16 +42,16 @@ void main(int argc, char** argv){
     Triangulo.coordenadas_z[0] = 0.0;
     Triangulo.coordenadas_z[1] = 0.0;
     Triangulo.coordenadas_z[2] = 0.0;
-    //-----------------------------------------------    
+    //-----------------------------------------------
     
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(1000, 800);
-    glutInitWindowPosition(50,50);
+    glutInitWindowPosition(-100,-100);
     glutCreateWindow ("Exercicio 01 --- Grupo 07");
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glShadeModel (GL_FLAT);
-    glOrtho (0, 1, 0, 1, -1 ,1);
+    glOrtho (0, 5, 0, 5, -5 ,5);
     glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
     glutKeyboardFunc(GerenciaTeclado);
@@ -57,27 +60,27 @@ void main(int argc, char** argv){
     glutMainLoop();
    
 }
-
-
 // Função callback chamada para fazer o desenho
-void Desenha(void){
+void Desenha(void)
+{ 
     glLoadIdentity();
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_POLYGON);
-    glVertex3f(Triangulo.coordenadas_x[0]*escala, Triangulo.coordenadas_y[0]*escala, Triangulo.coordenadas_z[0]*escala); //baixo esq
-    glVertex3f(Triangulo.coordenadas_x[1]*escala, Triangulo.coordenadas_y[1]*escala, Triangulo.coordenadas_z[1]*escala); //baixo dir
-    glVertex3f(Triangulo.coordenadas_x[2]*escala, Triangulo.coordenadas_y[2]*escala, Triangulo.coordenadas_z[2]*escala); //cima
+    glVertex3f((Triangulo.coordenadas_x[0]*escala)+tx, (Triangulo.coordenadas_y[0]*escala)+ty, Triangulo.coordenadas_z[0]*escala); //baixo esq
+    glVertex3f((Triangulo.coordenadas_x[1]*escala)+tx, (Triangulo.coordenadas_y[1]*escala)+ty, Triangulo.coordenadas_z[1]*escala); //baixo dir
+    glVertex3f((Triangulo.coordenadas_x[2]*escala)+tx, (Triangulo.coordenadas_y[2]*escala)+ty, Triangulo.coordenadas_z[2]*escala); //cima
     glEnd();
     glFlush();
 }
 
 // Inicializa parâmetros de rendering
 void Inicializa (void){
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
 }
 
 // Função callback chamada quando o tamanho da janela é alterado
-void AlteraTamanhoJanela(GLsizei w, GLsizei h){
+void AlteraTamanhoJanela(GLsizei w, GLsizei h)
+{
 	// Especifica as dimensões da Viewport
 	glViewport(0, 0, w, h);
 	view_w = w;
@@ -87,6 +90,7 @@ void AlteraTamanhoJanela(GLsizei w, GLsizei h){
 	glLoadIdentity();
 	gluOrtho2D (-win, win, -win, win);
 }
+
 /*Funcao para rotacao ao redor do eixo Z
  * parametros: double angulo -> espera um valor real com o angulo de rotacao
  */
@@ -110,17 +114,34 @@ void GerenciaTeclado(unsigned char key, int x, int y){
 		case 'g':
 		case 'G':// muda a escala pra grande
 			escala += 0.4;
-			break;
+		break;
 		case 'm':
 		case 'M':// muda a escala menor
 			escala -= 0.4;
-			break;
+		break;
 		case 'r':
-		case 'R':
 			rotacionar(Valor_fixo_rotacao);
-			//rotacionar, o valor fixado esta em 30 graus
 			break;
+		case 'R':
+			rotacionar(-Valor_fixo_rotacao);
+			//rotacionar, o valor fixado esta em 30 graus	
+			break;
+		case 'e':
+		case 'E'://translada pra esquerda
+			tx += -0.25;	
+		break;
+		case 'd':
+		case 'D'://translada pra direita
+			tx += 0.25;
+		break;
+		case 'c':
+		case 'C'://translada pra cima
+			ty += 0.25;
+		break;
+		case 'b':
+		case 'B'://translada pra baixo
+			ty += -0.25;
+		break;	
 	}
 	glutPostRedisplay();
 }
-

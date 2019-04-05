@@ -7,7 +7,7 @@
  * Nesse caso estamos gerando um Triangulo */
 typedef struct Coordenadas_poligono{
 	int quantidade_de_lados;
-	GLfloat *coordenadas_x, *coordenadas_y, *coordenadas_z;
+	GLfloat *coordenadas_x, *coordenadas_y, *coordenadas_z, center_x, center_y;
 }CoordenadasTriangulo;
 
 CoordenadasTriangulo Triangulo;
@@ -15,7 +15,7 @@ GLint view_w, view_h;
 GLfloat xf, yf, win;
 float escala = 1;
 double Valor_fixo_rotacao = 30.0;
-
+float center_x, center_y;
 
 void Desenha(void);
 void Inicializa(void);
@@ -40,7 +40,7 @@ void main(int argc, char** argv){
     Triangulo.coordenadas_z[0] = 0.0;
     Triangulo.coordenadas_z[1] = 0.0;
     Triangulo.coordenadas_z[2] = 0.0;
-    //-----------------------------------------------
+    //-----------------------------------------------    
     
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
@@ -61,11 +61,9 @@ void main(int argc, char** argv){
 
 
 // Função callback chamada para fazer o desenho
-void Desenha(void)
-{
+void Desenha(void){
     glLoadIdentity();
     glClear(GL_COLOR_BUFFER_BIT);
-
     glBegin(GL_POLYGON);
     glVertex3f(Triangulo.coordenadas_x[0]*escala, Triangulo.coordenadas_y[0]*escala, Triangulo.coordenadas_z[0]*escala); //baixo esq
     glVertex3f(Triangulo.coordenadas_x[1]*escala, Triangulo.coordenadas_y[1]*escala, Triangulo.coordenadas_z[1]*escala); //baixo dir
@@ -80,8 +78,7 @@ void Inicializa (void){
 }
 
 // Função callback chamada quando o tamanho da janela é alterado
-void AlteraTamanhoJanela(GLsizei w, GLsizei h)
-{
+void AlteraTamanhoJanela(GLsizei w, GLsizei h){
 	// Especifica as dimensões da Viewport
 	glViewport(0, 0, w, h);
 	view_w = w;
@@ -114,16 +111,17 @@ void GerenciaTeclado(unsigned char key, int x, int y){
 		case 'g':
 		case 'G':// muda a escala pra grande
 			escala += 0.4;
-		break;
+			break;
 		case 'm':
 		case 'M':// muda a escala menor
 			escala -= 0.4;
-		break;
+			break;
 		case 'r':
 		case 'R':
 			rotacionar(Valor_fixo_rotacao);
 			//rotacionar, o valor fixado esta em 30 graus
-		break;
+			break;
 	}
 	glutPostRedisplay();
 }
+

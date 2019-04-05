@@ -1,7 +1,11 @@
+/* Trabalho 2 - Grupo 7
+ * 1. Transformações de translação, escala e rotação 2D.
+ */
 #include <GL/glut.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#define MAX(x,y) (x > y ? x : y)
 
 /*'Coordenadas_poligono' serve como base para a criacao de poligonos
  * Nesse caso estamos gerando um Triangulo */
@@ -25,9 +29,9 @@ void GerenciaTeclado(unsigned char key, int x, int y);
 void AlteraTamanhoJanela(GLsizei w, GLsizei h);
 void rotacionar(double angulo);
 
-void main(int argc, char** argv){
+int main(int argc, char** argv){
     
-    int x, y;
+    
     //Inicializacao de um poligono de 3 lados
     Triangulo.quantidade_de_lados = 3;
     Triangulo.coordenadas_x = (GLfloat *)malloc(sizeof(GLfloat)*Triangulo.quantidade_de_lados);
@@ -47,18 +51,18 @@ void main(int argc, char** argv){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(1000, 800);
-    glutInitWindowPosition(-100,-100);
+    glutInitWindowPosition(0,0);
     glutCreateWindow ("Exercicio 01 --- Grupo 07");
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glShadeModel (GL_FLAT);
-    glOrtho (0, 5, 0, 5, -5 ,5);
+    glOrtho (0, 2, 0, 2, -2 ,2);
     glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
     glutKeyboardFunc(GerenciaTeclado);
     
     Inicializa();
     glutMainLoop();
-   
+	return 0;
 }
 // Função callback chamada para fazer o desenho
 void Desenha(void)
@@ -117,29 +121,30 @@ void GerenciaTeclado(unsigned char key, int x, int y){
 		break;
 		case 'm':
 		case 'M':// muda a escala menor
-			escala -= 0.4;
+			escala = MAX(escala-0.4,0.4);
 		break;
 		case 'r':
 			rotacionar(Valor_fixo_rotacao);
+			//rotacionar no sentido anti-horário, o valor fixado esta em 30 graus	
 			break;
 		case 'R':
 			rotacionar(-Valor_fixo_rotacao);
-			//rotacionar, o valor fixado esta em 30 graus	
+			//rotacionar no sentido horário, o valor fixado esta em 30 graus	
 			break;
-		case 'e':
-		case 'E'://translada pra esquerda
+		case 'a':
+		case 'A'://translada pra esquerda
 			tx += -0.25;	
 		break;
 		case 'd':
 		case 'D'://translada pra direita
 			tx += 0.25;
 		break;
-		case 'c':
-		case 'C'://translada pra cima
+		case 'w':
+		case 'W'://translada pra cima
 			ty += 0.25;
 		break;
-		case 'b':
-		case 'B'://translada pra baixo
+		case 's':
+		case 'S'://translada pra baixo
 			ty += -0.25;
 		break;	
 	}

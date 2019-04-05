@@ -100,8 +100,8 @@ void AlteraTamanhoJanela(GLsizei w, GLsizei h)
  * Nessa função a rotação é feita através de um ângulo teta qualquer a partir da origem.
  * A rotação segue o seguinte cálculo:
  * 	
- * 		x' = x * cos(teta) - y * sen(teta)
- *  	y' = y * sen(teta) + y * cos(teta)
+ *x' = x * cos(teta) - y * sen(teta)
+ *y' = y * sen(teta) + y * cos(teta)
  * 
  * -> x e y são as coordenadas atuais de um determinado vértice, antes da rotação.
  * -> x' e y' são as novas coordenadas de um determinado vértice, dada sua rotação.

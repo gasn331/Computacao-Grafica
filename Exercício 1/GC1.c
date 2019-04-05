@@ -69,6 +69,7 @@ void Desenha(void)
 { 
     glLoadIdentity();
     glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f (1.0, 0.0, 0.0);
     glBegin(GL_POLYGON);
     glVertex3f((Triangulo.coordenadas_x[0]*escala)+tx, (Triangulo.coordenadas_y[0]*escala)+ty, Triangulo.coordenadas_z[0]*escala); //baixo esq
     glVertex3f((Triangulo.coordenadas_x[1]*escala)+tx, (Triangulo.coordenadas_y[1]*escala)+ty, Triangulo.coordenadas_z[1]*escala); //baixo dir
@@ -156,6 +157,18 @@ void GerenciaTeclado(unsigned char key, int x, int y){
 		case 'S'://translada pra baixo
 			ty += -0.25;
 		break;	
+		case 'c':
+		case 'C':
+			Triangulo.coordenadas_x[0] = 0.125;
+    		Triangulo.coordenadas_x[1] = 0.375;
+    		Triangulo.coordenadas_x[2] = 0.245;
+    		Triangulo.coordenadas_y[0] = 0.125;
+    		Triangulo.coordenadas_y[1] = 0.125;
+    		Triangulo.coordenadas_y[2] = 0.375;
+    		Triangulo.coordenadas_z[0] = 0.0;
+    		Triangulo.coordenadas_z[1] = 0.0;
+    		Triangulo.coordenadas_z[2] = 0.0;
+		break;
 	}
 	glutPostRedisplay();
 }

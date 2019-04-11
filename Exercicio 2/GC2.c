@@ -45,7 +45,7 @@ int main(int argc, char** argv){
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(1000, 800);
     glutInitWindowPosition(0,0);
-    glutCreateWindow ("Exercicio 01 --- Grupo 07");
+    glutCreateWindow ("Exercicio 02 --- Grupo 07");
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glShadeModel (GL_FLAT);
     glOrtho (0, 2, 0, 2, -2 ,2);
@@ -68,10 +68,9 @@ void Desenha(void)
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_POLYGON);
     
-    //if(parametro_x == 0){
-        glVertex3f(temp_x + Triangulo.coordenadas_x[0],temp_y + Triangulo.coordenadas_y[0], Triangulo.coordenadas_z[0]); //baixo esq
-        glVertex3f(temp_x + Triangulo.coordenadas_x[1],temp_y + Triangulo.coordenadas_y[1], Triangulo.coordenadas_z[1]); //baixo dir
-        glVertex3f(temp_x + Triangulo.coordenadas_x[2],temp_y + Triangulo.coordenadas_y[2], Triangulo.coordenadas_z[2]); //cima
+    glVertex3f(temp_x + Triangulo.coordenadas_x[0],temp_y + Triangulo.coordenadas_y[0], Triangulo.coordenadas_z[0]); //baixo esq
+    glVertex3f(temp_x + Triangulo.coordenadas_x[1],temp_y + Triangulo.coordenadas_y[1], Triangulo.coordenadas_z[1]); //baixo dir
+    glVertex3f(temp_x + Triangulo.coordenadas_x[2],temp_y + Triangulo.coordenadas_y[2], Triangulo.coordenadas_z[2]); //cima
     
     for(i = 0; i < 3; i++){
         Triangulo.coordenadas_x[i] = temp_x + Triangulo.coordenadas_x[i];
@@ -122,7 +121,6 @@ void mouse(int x, int y){
     parametro_y = oy;
     
     if( (ox >= Triangulo.coordenadas_x[0] && ox <= Triangulo.coordenadas_x[1]) && (oy >= Triangulo.coordenadas_y[0] && oy <= Triangulo.coordenadas_y[2]) ){
-        printf("Dentro desgraça\n");
         if(flag == 1){ 
             temp_x =  parametro_x - last_x;
             temp_y =  parametro_y - last_y;
@@ -136,10 +134,7 @@ void mouse(int x, int y){
             last_y = parametro_y;
             flag = 1;
         }
-        printf("tempx -> %f  ||| tempy-> %f\n", temp_x, temp_y);
     }   
-    //printf("World %f, %f, %f)\n", ox, oy,oz);
-    printf("Mouse ANDANDO pressionado na janela. Posição: (%d, %d)\n", x,y);
 }
 
 void mouse_click (int button, int state, int x, int y) { 
@@ -160,37 +155,14 @@ void mouse_click (int button, int state, int x, int y) {
     // -------------------------------------- //
     
     if (state == GLUT_DOWN){
-        printf("Ta dentro\n");
-        
+
         temp_x = 0;
         temp_y = 0;
         flag = 0;
-    /*
-        a1 = (Triangulo.coordenadas_y[2] - Triangulo.coordenadas_y[0])/(Triangulo.coordenadas_x[2] - Triangulo.coordenadas_x[0]);
-        a2 = (Triangulo.coordenadas_y[2] - Triangulo.coordenadas_y[1])/(Triangulo.coordenadas_x[2] - Triangulo.coordenadas_x[1]);
-        b1 = Triangulo.coordenadas_y[2] - a1*Triangulo.coordenadas_x[2];
-        b2 = Triangulo.coordenadas_y[2] - a2*Triangulo.coordenadas_x[2];
-        
-        
-        if( (ox >= Triangulo.coordenadas_x[0] && ox <= Triangulo.coordenadas_x[1]) && 
-            (oy >= Triangulo.coordenadas_y[0] && oy <= Triangulo.coordenadas_y[2]) ){
-        
-            printf("Dentro\n");
-            flag = 1;
-            /*
-            if( ((a1*ox + b1) > oy) && ((a2*ox + b2) > oy) ){
-                printf("Dentro do triangulo\n");
-            }
-            
-        }
-        else 
-            flag = 2;
-        */
-
+    
     }
 
     if(state == GLUT_UP){
         flag = 0;
-        printf("saiu\n");
     }
 }

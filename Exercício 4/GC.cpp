@@ -8,9 +8,9 @@ typedef struct paleta_de_cores{ //estrutura criada com a finalidade de manter a 
 }cor;
 
 /* limites para as coordenadas do mundo */
-GLsizei  winWidth = 600,  winHeight = 600;
-GLfloat xwcMin = -255.0, xwcMax = 255.0;
-GLfloat  ywcMin = -255.0, ywcMax = 255.0;
+GLsizei winWidth = 600,    winHeight = 600;
+GLfloat xwcMin   = -255.0, xwcMax = 255.0;
+GLfloat ywcMin   = -255.0, ywcMax = 255.0;
 /*--------------------------------------*/
 cor paleta;
 
@@ -18,14 +18,6 @@ void write_pixel(GLfloat x, GLfloat y, cor paleta){ //funçao que pinta um pixel
 	glBegin(GL_POINTS);
 	glColor3f(paleta.cores[0],paleta.cores[1],paleta.cores[2]);
 	glVertex2i(x,y);
-	glEnd();
-}
-
-void write_line(GLfloat x, GLfloat y, GLfloat x2, GLfloat y2, cor paleta){ //Funçao analoga ao write_pixel, foi uma tentativa de pintar o circulo
-	glBegin(GL_LINES);
-	glColor3f(paleta.cores[0],paleta.cores[1],paleta.cores[2]);
-	glVertex2i(x,y);
-	glVertex2i(x2,y2);
 	glEnd();
 }
 
@@ -40,32 +32,23 @@ void CirclePoints(int x, int y, cor paleta){ //A função MidPointCircle apenas 
 	write_pixel(-y, -x, paleta);
 }/*end CirclePoints*/
 
-void CircleLines(int x, int y, cor paleta){ //Função analoga ao CirclePoints, seria uma função para ser utilizada junto com o write_line com a finalidade de pintar o circulo, porém não está sendo usada
-	write_line( x, y, x, -y,paleta);
-	write_line( x, -y, -x, y, paleta);
-	write_line(-x, y, -x, -y, paleta);
-	write_line(-x, -y, y, x, paleta);
-	write_line( y, x, y, -x, paleta);
-	write_line( y, -x, -y, x, paleta);
-	write_line(-y, x, -y, -x, paleta);
-	write_line(-y, -x, x, y, paleta);
-}/*end CirclePoints*/
-
 void MidpointCircle(int radius,cor paleta){ //função que desenha a circunferência dado um raio e cor utilizando a teoria do ponto médio
 	int x = 0;
 	int y = radius;
 	int d = 1 - radius;
 	CirclePoints(x, y, paleta);
-	//CircleLines(x, y, paleta);
-	while(y > x) {
-		if(d < 0) d += 2 * x + 3;
+	while(y > x)	 {
+		if(d < 0) {
+			//A reta esta acima do ponto medio
+			d += 2 * x + 3;
+		}
 		else{
+			//A reta abaixo do ponto medio
 			d += 2 * (x - y) + 5;
 			y--;
 		}
 		x++;
 		CirclePoints(x, y, paleta);
-		//CircleLines(x, y, paleta);
 	}
 }
 
@@ -78,10 +61,11 @@ void init (void)
 
 void displayFcn (void)
 {
-	srand(time(NULL));
-	paleta.cores[0]=(rand() % 100)/100;
-	paleta.cores[1]=(rand() % 100)/100;
-	paleta.cores[2]=(rand() % 100)/100;
+	srand(time(0));
+	paleta.cores[0]=(rand() % 255)/100;
+	paleta.cores[1]=(rand() % 255)/100;
+	paleta.cores[2]=(rand() % 255)/100;
+
 	MidpointCircle(200,paleta); // 200 é o raio da circunferência
 	glFlush();
 }

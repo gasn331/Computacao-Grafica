@@ -103,9 +103,8 @@ void reshape(GLsizei width, GLsizei height) {  // GLsizei for non-negative integ
    // Set the aspect ratio of the clipping volume to match the viewport
    glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
    glLoadIdentity();             // Reset
-   
-   glOrtho(-4.0, 4.0, -4.0, 4.0, 0.1f, 100.0f);
-   
+
+   glFrustum(-0.09, 0.09, -0.09, 0.09, 0.1f, 100.0f);
 }
 
 /* ----------------------------------------------------------
@@ -144,9 +143,9 @@ void normalKeys (unsigned char key, int x, int y){
 ** Função animation()
 ** --------------------------------------------------------*/
 void animation(void){
-   rotate_y += 2;
-   rotate_x += 2;
-   rotate_z += 2;
+   rotate_y += 1;
+   rotate_x += 1;
+   rotate_z += 1;
    display();
 }
 
